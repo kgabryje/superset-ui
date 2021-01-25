@@ -17,6 +17,7 @@
  * under the License.
  */
 import React from 'react';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import { ColumnTypeLabel } from './ColumnTypeLabel';
 import InfoTooltipWithTrigger from './InfoTooltipWithTrigger';
@@ -40,7 +41,14 @@ export function ColumnOption({ column, showType = false }: ColumnOptionProps) {
   return (
     <span>
       {showType && columnType && <ColumnTypeLabel type={columnType} />}
-      <span className="m-r-5 option-label">{column.verbose_name || column.column_name}</span>
+      <OverlayTrigger
+        placement="top"
+        overlay={
+          <Tooltip id="metric-name-tooltip">
+            <span className="m-r-5 option-label">{column.verbose_name || column.column_name}</span>
+          </Tooltip>
+        }
+      />
       {column.description && (
         <InfoTooltipWithTrigger
           className="m-r-5 text-muted"
